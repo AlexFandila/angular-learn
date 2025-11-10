@@ -1,7 +1,8 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { CharacterList } from '../../components/dragonball/character-list/character-list';
 import { Character } from '../../interfaces/character.interface';
 import { CharacterAddComponent } from '../../components/dragonball/dragonball-character-add/dragonball-character-add';
+import { DragonballService } from '../../services/dragonball.service';
 
 @Component({
   selector: 'app-dragonball-super',
@@ -9,28 +10,8 @@ import { CharacterAddComponent } from '../../components/dragonball/dragonball-ch
   templateUrl: './dragonball-super.template.html',
 })
 export class DragonballSuper {
-  characters = signal<Character[]>([
-    { id: 1, name: 'Goku', power: 9001 },
-    { id: 2, name: 'Vegeta', power: 8000 },
-  ]);
 
-  powerClasses = computed(() => {
-    return {
-      'text-danger': true,
-    };
-  });
+  public dragonballService = inject(DragonballService);
 
-  hasGreatPower(character: Character): boolean {
-    if (character.power > 1000) {
-      return true;
-    }
 
-    return false;
-  }
-
-  addCharacter(newCharacter: Character) {
-    this.characters.update((value) => {
-      return [...value, newCharacter];
-    });
-  }
 }

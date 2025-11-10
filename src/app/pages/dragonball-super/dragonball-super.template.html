@@ -4,11 +4,11 @@
 <section class="row">
   <div class="col-12 col-sm-6">
     <dragonball-character-add 
-      (newCharacter)="addCharacter($event)"
+      (newCharacter)="dragonballService.addCharacter($event)"
     />
   </div>
 
   <div>
-    <dragonball-character-list [characters]="characters()" listName="Listado de personajes" />
+    <dragonball-character-list [characters]="dragonballService.characters()" listName="Listado de personajes" />
   </div>
 </section>
