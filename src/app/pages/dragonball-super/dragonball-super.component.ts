@@ -1,14 +1,11 @@
 import { Component, computed, signal } from '@angular/core';
-
-interface Character {
-  id: number;
-  name: string;
-  power: number;
-}
+import { CharacterList } from '../../components/dragonball/character-list/character-list';
+import { Character } from '../../interfaces/character.interface';
+import { CharacterAddComponent } from '../../components/dragonball/dragonball-character-add/dragonball-character-add';
 
 @Component({
   selector: 'app-dragonball-super',
-  imports: [],
+  imports: [CharacterList, CharacterAddComponent],
   templateUrl: './dragonball-super.template.html',
 })
 export class DragonballSuper {
@@ -17,7 +14,7 @@ export class DragonballSuper {
 
   characters = signal<Character[]>([
     { id: 1, name: 'Goku', power: 9001 },
-    { id: 2, name: 'Vegeta', power: 8000 }
+    { id: 2, name: 'Vegeta', power: 8000 },
   ]);
 
   powerClasses = computed(() => {
@@ -34,24 +31,9 @@ export class DragonballSuper {
     return false;
   }
 
-  addCharacter(name: string, power: number) {
-    if (!this.name() || !this.power() || this.power() <= 0) return;
-
-    const char: Character = {
-      id: this.characters().length + 1,
-      name: name,
-      power: power
-    };
-
+  addCharacter(newCharacter: Character) {
     this.characters.update((value) => {
-      return [...value, char];
+      return [...value, newCharacter];
     });
-    this.resetFields();
   }
-
-  resetFields() {
-    this.name.set('');
-    this.power.set(0);
-  }
-
 }
